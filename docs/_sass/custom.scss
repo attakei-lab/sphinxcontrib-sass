@@ -1,3 +1,8 @@
-body {
-    background-color: black;
+
+@import url(//fonts.googleapis.com/earlyaccess/notosanssc.css);
+$font-cn: "Noto Sans SC", "游ゴシック", YuGothic, "ヒラギノ角ゴ Pro", "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo", sans-serif;
+
+
+h1 {
+  font-family: $font-cn !important;
 }
