@@ -7,10 +7,15 @@ Overview
 
 Sphinx extension to compile sass to css in running sphinx-build.
 
-NOTICE
-======
+Install
+=======
 
 This is alpha product, and does not yet registered in public PyPI.
+You can get it from my private PyPI (not need authenticated).
+
+.. code-block:: bash
+
+   $ pip install -i https://pypi.attakei.net/simple/ sphinxcontrib-sass
 
 Usage
 =====
