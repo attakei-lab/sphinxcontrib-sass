@@ -22,3 +22,4 @@ sass_out_dir = '_static/css'
 sass_targets = {
     '_sass/custom.scss': '_static/css/custom.css',
 }
+sass_output_style = 'compressed'
