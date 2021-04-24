@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "sphinxcontrib-sass"
-version = "0.1.1"
+version = "0.1.2"
 description = "Sphinx extension to compile sass to css in running sphinx-build."
 authors = ["Kazuya Takei <myself@attakei.net>"]
 license = "Apache-2.0"

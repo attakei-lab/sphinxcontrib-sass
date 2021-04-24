@@ -1,3 +1,4 @@
+from os import PathLike
 from pathlib import Path
 from typing import Dict
 
@@ -9,7 +10,7 @@ from sphinx.util import logging
 logger = logging.getLogger(__name__)
 
 
-Targets = Dict[str, str]
+Targets = Dict[PathLike, PathLike]
 
 
 def build_sass_sources(app: Sphinx, env):
@@ -21,10 +22,12 @@ def build_sass_sources(app: Sphinx, env):
     out_dir.mkdir(exist_ok=True, parents=True)
     # Build css files
     for src, dst in targets.items():
-        content = Path(src).read_text()
-        with Path(dst).open("w") as fp:
-            css = sass.compile(string=content, output_style=output_style)
-            fp.write(css)
+        src_ = Path(src)
+        content = src_.read_text()
+        css = sass.compile(
+            string=content, output_style=output_style, include_paths=[str(src_.parent)]
+        )
+        Path(dst).write_text(css)
 
 
 def setup(app: Sphinx):
