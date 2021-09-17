@@ -27,6 +27,21 @@ Usage
    * Configure for ``sphinxcontrib.sass`` (see example)
 #. Run ``sphinx-build``
 
+Options
+-------
+
+``sass_src_dir``
+  Root directory of SASS source files.
+
+``sass_out_dir``
+  Root directory to output compiled css files.
+
+``sass_targets``
+  File map of sources and outputs
+
+``sass_output_style``
+  Output style to generate css by libsass.
+
 Example
 =======
 
@@ -37,11 +52,11 @@ Example
    ]
    html_css_files = ["css/custom.css"]
 
+   sass_src_dir = "_sass"
    sass_out_dir = "_static/css"
    sass_targets = {
-    "_sass/custom.scss": "_static/css/custom.css"
+    "custom.scss": "custom.css"
    }
-
 
 License
 =======
