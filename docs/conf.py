@@ -18,8 +18,9 @@ html_theme = 'alabaster'
 html_static_path = ['_static']
 html_css_files = ['css/custom.css']
 
+sass_src_dir = '_sass'
 sass_out_dir = '_static/css'
 sass_targets = {
-    '_sass/custom.scss': '_static/css/custom.css',
+    'custom.scss': 'custom.css',
 }
 sass_output_style = 'compressed'
