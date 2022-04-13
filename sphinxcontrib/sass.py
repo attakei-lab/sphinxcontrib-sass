@@ -45,6 +45,8 @@ def build_sass_sources(app: Sphinx, env):
             output_style=output_style,
             include_paths=[str(src_.parent)]
         )
+        out_path = out_dir / dst
+        out_path.parent.mkdir(exist_ok=True, parents=True)
         (out_dir / dst).write_text(css)
 
 
