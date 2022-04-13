@@ -15,7 +15,7 @@ You can get it from my private PyPI (not need authenticated).
 
 .. code-block:: bash
 
-   $ pip install -i https://pypi.attakei.net/simple/ sphinxcontrib-sass
+   pip install --find-links=https://github.com/attakei-lab/sphinxcontrib-sass/releases sphinxcontrib-sass
 
 Usage
 =====
