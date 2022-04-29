@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "sphinxcontrib-sass"
-version = "0.2.1"
+version = "0.2.2"
 description = "Sphinx extension to compile sass to css in running sphinx-build."
 authors = ["Kazuya Takei <myself@attakei.net>"]
 homepage = "https://github.com/attakei-lab/sphinxcontrib-sass/"
