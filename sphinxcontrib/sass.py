@@ -13,10 +13,7 @@ logger = logging.getLogger(__name__)
 Targets = Dict[PathLike, PathLike]
 
 
-def configure_path(
-        conf_dir: str,
-        src: Optional[Union[PathLike, Path]]
-) -> Path:
+def configure_path(conf_dir: str, src: Optional[Union[PathLike, Path]]) -> Path:
     if src is None:
         target = Path(conf_dir)
     elif isinstance(src, str):
@@ -41,9 +38,7 @@ def build_sass_sources(app: Sphinx, env):
         src_ = src_dir / src
         content = src_.read_text()
         css = sass.compile(
-            string=content,
-            output_style=output_style,
-            include_paths=[str(src_.parent)]
+            string=content, output_style=output_style, include_paths=[str(src_.parent)]
         )
         out_path = out_dir / dst
         out_path.parent.mkdir(exist_ok=True, parents=True)
