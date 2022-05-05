@@ -53,13 +53,12 @@ jobs:
         uses: actions/create-release@latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          IS_PRERELEASE: job.check-stage.steps.release-stage.outputs.is_ga != 1
         with:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
           body: ''
           draft: false
-          prerelease: ${{ env.IS_PRERELEASE }}
+          prerelease: job.check-stage.steps.release-stage.outputs.is_ga != '1'
       - name: Upload sdist to GitHub
         uses: actions/upload-release-asset@v1
         env:
