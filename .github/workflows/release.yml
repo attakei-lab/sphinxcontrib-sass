@@ -6,8 +6,16 @@ on:
       - 'v*.*.*'
 
 jobs:
+  check-stage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check stage from tag
+        id: release-stage
+        run: |
+          echo ::set-output name=is_ga::$(echo ${{ github.ref }} | grep '^v[0-9]\+\.[0-9]\+\.[0-9]\+$'|wc -l)
   build:
     runs-on: ubuntu-latest
+    needs: check-stage
     steps:
       - uses: actions/checkout@v3
       - run: pipx install poetry
@@ -17,9 +25,27 @@ jobs:
           python-version: '3.9'
           cache: 'poetry'
       - name: Build packages
-        id: build_package
         run: |
+          poetry env use "3.9"
           poetry build
+      - uses: actions/upload-artifact@v3
+        with:
+          name: dist-packages
+          path: dist
+  release-github:
+    runs-on: ubuntu-latest
+    needs:
+      - check-stage
+      - build
+    steps:
+      - name: Download a single artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: dist-packages
+          path: dist/
+      - name: Get asset names
+        id: get-asset-names
+        run: |
           echo ::set-output name=targz::$(basename $(ls dist/*tar.gz))
           echo ::set-output name=wheel::$(basename $(ls dist/*whl))
       - name: Create release on GitHub
@@ -27,20 +53,21 @@ jobs:
         uses: actions/create-release@latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          IS_PRERELEASE: ${{ job.check-stage.steps.release-stage.outputs.is_ga != '1' }}
         with:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
           body: ''
           draft: false
-          prerelease: false
+          prerelease: ${{ env.IS_PRERELEASE }}
       - name: Upload sdist to GitHub
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: dist/${{ steps.build_package.outputs.targz }}
-          asset_name: ${{ steps.build_package.outputs.targz }}
+          asset_path: dist/${{ steps.get-asset-names.outputs.targz }}
+          asset_name: ${{ steps.get-asset-names.outputs.targz }}
           asset_content_type: application/gzip
       - name: Upload wheel to GitHub
         uses: actions/upload-release-asset@v1
@@ -48,6 +75,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: dist/${{ steps.build_package.outputs.wheel }}
-          asset_name: ${{ steps.build_package.outputs.wheel }}
+          asset_path: dist/${{ steps.get-asset-names.outputs.wheel }}
+          asset_name: ${{ steps.get-asset-names.outputs.wheel }}
           asset_content_type: application/zip
