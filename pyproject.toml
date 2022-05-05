@@ -9,13 +9,16 @@ packages = [
     { include = "sphinxcontrib" },
 ]
 classifiers = [
-    "Development Status :: 2 - Pre-Alpha",
-	"Framework :: Sphinx",
+    "Development Status :: 3 - Alpha",
+    "Framework :: Sphinx",
     "Framework :: Sphinx :: Extension",
-	"Intended Audience :: Developers",
-	"License :: OSI Approved :: Apache Software License",
-	"Programming Language :: Python :: 3.9",
-	"Topic :: Documentation :: Sphinx",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Topic :: Documentation :: Sphinx",
 ]
 
 [tool.poetry.dependencies]
