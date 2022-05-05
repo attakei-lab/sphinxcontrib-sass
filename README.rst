@@ -11,7 +11,7 @@ Install
 =======
 
 This is alpha product, and does not yet registered in public PyPI.
-You can get it from my private PyPI (not need authenticated).
+You can get it from GitHub Releases.
 
 .. code-block:: bash
 
