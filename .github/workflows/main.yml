@@ -20,7 +20,9 @@ jobs:
           architecture: x64
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
-        run: poetry install
+        run: |
+          poetry env use "${{ matrix.python-version }}"
+          poetry install
       - name: Lint sources
         run: poetry run black --check .
       - name: Check buildable
