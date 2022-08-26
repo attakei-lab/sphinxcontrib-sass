@@ -29,7 +29,7 @@ def build_sass_sources(app: Sphinx, env):
     logger.debug("Building stylesheet files")
     src_dir = configure_path(app.confdir, app.config.sass_src_dir)
     out_dir = configure_path(app.confdir, app.config.sass_out_dir)
-    include_paths = [str(p) for p in app.config.include_paths]
+    include_paths = [str(p) for p in app.config.sass_include_paths]
     targets: Targets = app.config.sass_targets
     output_style = app.config.sass_output_style
     # Create output directory
