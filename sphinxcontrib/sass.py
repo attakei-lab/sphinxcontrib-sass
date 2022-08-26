@@ -29,6 +29,7 @@ def build_sass_sources(app: Sphinx, env):
     logger.debug("Building stylesheet files")
     src_dir = configure_path(app.confdir, app.config.sass_src_dir)
     out_dir = configure_path(app.confdir, app.config.sass_out_dir)
+    include_paths = [str(p) for p in app.config.include_paths]
     targets: Targets = app.config.sass_targets
     output_style = app.config.sass_output_style
     # Create output directory
@@ -38,7 +39,9 @@ def build_sass_sources(app: Sphinx, env):
         src_ = src_dir / src
         content = src_.read_text()
         css = sass.compile(
-            string=content, output_style=output_style, include_paths=[str(src_.parent)]
+            string=content,
+            output_style=output_style,
+            include_paths=[str(src_.parent)] + include_paths,
         )
         out_path = out_dir / dst
         out_path.parent.mkdir(exist_ok=True, parents=True)
@@ -50,6 +53,7 @@ def setup(app: Sphinx):
     Setup function for this extension.
     """
     logger.debug(f"Using {__name__}")
+    app.add_config_value("sass_include_paths", [], "html")
     app.add_config_value("sass_src_dir", None, "html")
     app.add_config_value("sass_out_dir", None, "html")
     app.add_config_value("sass_targets", {}, "html")

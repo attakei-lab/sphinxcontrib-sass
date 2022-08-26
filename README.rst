@@ -42,6 +42,9 @@ Options
 ``sass_output_style``
   Output style to generate css by libsass.
 
+``sass_include_paths``
+  Include path configuration for libsass.
+
 Example
 =======
 
