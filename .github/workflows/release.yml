@@ -18,16 +18,14 @@ jobs:
     needs: check-stage
     steps:
       - uses: actions/checkout@v3
-      - run: pipx install poetry
       - uses: actions/setup-python@v3
         with:
           architecture: x64
           python-version: '3.9'
-          cache: 'poetry'
       - name: Build packages
         run: |
-          poetry env use "3.9"
-          poetry build
+          pip install flit
+          flit build
       - uses: actions/upload-artifact@v3
         with:
           name: dist-packages
