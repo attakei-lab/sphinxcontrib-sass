@@ -10,12 +10,9 @@ Sphinx extension to compile sass to css in running sphinx-build.
 Install
 =======
 
-This is alpha product, and does not yet registered in public PyPI.
-You can get it from GitHub Releases.
-
 .. code-block:: bash
 
-   pip install --find-links=https://github.com/attakei-lab/sphinxcontrib-sass/releases sphinxcontrib-sass
+   pip install sphinxcontrib-sass
 
 Usage
 =====
