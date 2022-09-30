@@ -76,3 +76,8 @@ jobs:
           asset_path: dist/${{ steps.get-asset-names.outputs.wheel }}
           asset_name: ${{ steps.get-asset-names.outputs.wheel }}
           asset_content_type: application/zip
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          user: __token__
+          password: ${{ secrets.PYPI_API_TOKEN }}
