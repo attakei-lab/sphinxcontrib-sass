@@ -4,7 +4,7 @@ build-backend = "flit_core.buildapi"
 
 [project]
 name = "sphinxcontrib-sass"
-version = "0.3.2"
+version = "0.3.3"
 description = "Sphinx extension to compile sass to css in running sphinx-build."
 authors = [{name = "Kazuya Takei", email = "myself@attakei.net"}]
 readme = "README.rst"
