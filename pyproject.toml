@@ -41,4 +41,4 @@ Source = "https://github.com/attakei-lab/sphinxcontrib-sass"
 name = "sphinxcontrib.sass"
 
 [tool.flit.sdist]
-exclude = [".github", "docs"]
+exclude = [".github"]
