@@ -12,15 +12,14 @@ jobs:
       max-parallel: 2
       matrix:
         python-version: ['3.7', '3.8', '3.9', '3.10', '3.11', '3.12', '3.13']
+        workspace: ['locked', 'latest']
     steps:
       - uses: actions/checkout@v4
-      - name: Set python-version
-        run: |
-          echo ${{ matrix.python-version }} > .python-version
       - uses: astral-sh/setup-uv@v6
-      - name: Install dependencies
+      - name: 'Configure workspace'
         run: |
-          uv sync --frozen
+          echo ${{ matrix.python }} > .python-version
+          uv sync --all-groups --all-extras ${{ (matrix.workspace == 'latest' && '-U') || '--frozen' }}
       - name: Lint sources
         run: |
           uv run black --check .
