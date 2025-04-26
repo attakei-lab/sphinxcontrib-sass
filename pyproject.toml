@@ -27,7 +27,10 @@ dependencies = [
     "libsass",
 ]
 
-[project.optional-dependencies]
+[dependency-groups]
+dev = [
+    {include-group = "test"}
+]
 test = [
     "black >=22.3.0,<23",
     "flake8 >=3.8.4,<4",

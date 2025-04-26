@@ -1231,7 +1231,12 @@ dependencies = [
     { name = "sphinx", version = "8.2.3", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
 ]
 
-[package.optional-dependencies]
+[package.dev-dependencies]
+dev = [
+    { name = "black" },
+    { name = "flake8" },
+    { name = "pytest" },
+]
 test = [
     { name = "black" },
     { name = "flake8" },
@@ -1240,13 +1245,21 @@ test = [
 
 [package.metadata]
 requires-dist = [
-    { name = "black", marker = "extra == 'test'", specifier = ">=22.3.0,<23" },
-    { name = "flake8", marker = "extra == 'test'", specifier = ">=3.8.4,<4" },
     { name = "libsass" },
-    { name = "pytest", marker = "extra == 'test'", specifier = ">=6.2.2,<7" },
     { name = "sphinx" },
 ]
-provides-extras = ["test"]
+
+[package.metadata.requires-dev]
+dev = [
+    { name = "black", specifier = ">=22.3.0,<23" },
+    { name = "flake8", specifier = ">=3.8.4,<4" },
+    { name = "pytest", specifier = ">=6.2.2,<7" },
+]
+test = [
+    { name = "black", specifier = ">=22.3.0,<23" },
+    { name = "flake8", specifier = ">=3.8.4,<4" },
+    { name = "pytest", specifier = ">=6.2.2,<7" },
+]
 
 [[package]]
 name = "sphinxcontrib-serializinghtml"
