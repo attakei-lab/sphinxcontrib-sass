@@ -43,6 +43,11 @@ test = [
 Home = "https://github.com/attakei-lab/sphinxcontrib-sass"
 Source = "https://github.com/attakei-lab/sphinxcontrib-sass"
 
+[project.optional-dependencies]
+dart-sass = [
+    "sass-embedded>=0.1.0",
+]
+
 [tool.flit.module]
 name = "sphinxcontrib.sass"
 
