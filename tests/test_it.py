@@ -15,3 +15,13 @@ if TYPE_CHECKING:
 def test_default_build(app: SphinxTestApp):  # noqa
     app.build()
     assert (Path(app.srcdir) / "test.css").exists()
+
+
+@pytest.mark.sphinx(
+    "html",
+    testroot="default",
+    confoverrides={"sass_use_dart_sass": True},
+)
+def test_build_with_dart_sass(app: SphinxTestApp):  # noqa
+    app.build()
+    assert (Path(app.srcdir) / "test.css").exists()

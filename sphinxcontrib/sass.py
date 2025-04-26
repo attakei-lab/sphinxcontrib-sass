@@ -1,8 +1,7 @@
 from os import PathLike
 from pathlib import Path
-from typing import Dict, Optional, Union
+from typing import Dict, List, Optional, Union
 
-import sass
 from sphinx.application import Sphinx
 from sphinx.util import logging
 
@@ -11,6 +10,31 @@ logger = logging.getLogger(__name__)
 
 
 Targets = Dict[PathLike, PathLike]
+
+
+def compile(
+    source: Path, output_style: str, include_paths: List[str], dart_sass: bool = False
+):
+    if dart_sass:
+        from sass_embedded.simple import compile_string
+
+        # TODO: Update condition
+        output_style = "expanded" if output_style == "nested" else "compressed"
+        result = compile_string(
+            source=source.read_text(),
+            syntax=source.name.split(".")[-1],
+            style=output_style,
+            load_paths=[source.parent] + [Path(p) for p in include_paths],
+        )
+        return result.output
+
+    import sass
+
+    return sass.compile(
+        string=source.read_text(),
+        output_style=output_style,
+        include_paths=[str(source.parent)] + include_paths,
+    )
 
 
 def configure_path(conf_dir: str, src: Optional[Union[PathLike, Path]]) -> Path:
@@ -37,11 +61,11 @@ def build_sass_sources(app: Sphinx, env):
     # Build css files
     for src, dst in targets.items():
         src_ = src_dir / src
-        content = src_.read_text()
-        css = sass.compile(
-            string=content,
+        css = compile(
+            src_,
             output_style=output_style,
             include_paths=[str(src_.parent)] + include_paths,
+            dart_sass=app.config.sass_use_dart_sass,
         )
         out_path = out_dir / dst
         out_path.parent.mkdir(exist_ok=True, parents=True)
@@ -53,6 +77,7 @@ def setup(app: Sphinx):
     Setup function for this extension.
     """
     logger.debug(f"Using {__name__}")
+    app.add_config_value("sass_use_dart_sass", False, "html")
     app.add_config_value("sass_include_paths", [], "html")
     app.add_config_value("sass_src_dir", None, "html")
     app.add_config_value("sass_out_dir", None, "html")
