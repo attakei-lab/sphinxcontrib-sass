@@ -1,4 +1,4 @@
-name: Linting adn testing
+name: 'Run default CI jobs'
 
 on:
   push:
