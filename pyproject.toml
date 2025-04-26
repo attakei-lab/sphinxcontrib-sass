@@ -29,7 +29,8 @@ dependencies = [
 
 [dependency-groups]
 dev = [
-    {include-group = "test"}
+    {include-group = "test"},
+    "packaging>=24.0",
 ]
 test = [
     "black >=22.3.0,<23",

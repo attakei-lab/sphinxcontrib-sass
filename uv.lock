@@ -1235,6 +1235,8 @@ dependencies = [
 dev = [
     { name = "black" },
     { name = "flake8" },
+    { name = "packaging", version = "24.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.8'" },
+    { name = "packaging", version = "25.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.8'" },
     { name = "pytest" },
 ]
 test = [
@@ -1253,6 +1255,7 @@ requires-dist = [
 dev = [
     { name = "black", specifier = ">=22.3.0,<23" },
     { name = "flake8", specifier = ">=3.8.4,<4" },
+    { name = "packaging", specifier = ">=24.0" },
     { name = "pytest", specifier = ">=6.2.2,<7" },
 ]
 test = [
