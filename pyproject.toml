@@ -21,12 +21,17 @@ classifiers = [
     "Programming Language :: Python :: 3.10",
     "Topic :: Documentation :: Sphinx",
 ]
+requires-python = ">= 3.7"
 dependencies = [
     "Sphinx",
     "libsass",
 ]
 
-[project.optional-dependencies]
+[dependency-groups]
+dev = [
+    {include-group = "test"},
+    "packaging>=24.0",
+]
 test = [
     "black >=22.3.0,<23",
     "flake8 >=3.8.4,<4",

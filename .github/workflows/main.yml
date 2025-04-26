@@ -13,16 +13,16 @@ jobs:
       matrix:
         python-version: ['3.7', '3.8', '3.9', '3.10']
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v3
-        with:
-          architecture: x64
-          python-version: ${{ matrix.python-version }}
+      - uses: actions/checkout@v4
+      - name: Set python-version
+        run: |
+          echo ${{ matrix.python-version }} > .python-version
+      - uses: astral-sh/setup-uv@v6
       - name: Install dependencies
         run: |
-          pip install flit
-          flit install
+          uv sync --frozen
       - name: Lint sources
-        run: black --check .
+        run: |
+          uv run black --check .
       - name: Check buildable
-        run: flit build
+        run: uv build
