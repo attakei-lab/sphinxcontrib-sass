@@ -26,3 +26,6 @@ jobs:
           uv run black --check .
       - name: Check buildable
         run: uv build
+      - name: Run test
+        run: |
+          uv run pytest
